@@ -1,45 +1,43 @@
-Todo App
-This is a simple web application built with React and Material-UI that allows users to manage their todo list. The app features a data grid that displays the user's todos, which can be sorted by different columns such as priority and due date. Users can also filter the data grid by typing in a search box.
-
-Getting Started
-To get started with the app, first clone this repository:
-
-shell
-Copy code
-$ git clone https://github.com/yourusername/todo-app.git
-Next, navigate to the root folder and install the required dependencies:
-
-shell
-Copy code
-$ cd todo-app
-$ npm install
-Finally, start the development server:
-
-ruby
-Copy code
-$ npm start
-The app should now be available at http://localhost:3000/.
-
-Usage
-Adding a Todo
-To add a new todo, click on the "Add Todo" button located at the top of the page. This will open up a form where you can enter the title, description, priority, and due date of the new todo. Once you have entered all the required information, click on the "Add" button to add the new todo to the list.
-
-Editing a Todo
-To edit an existing todo, click on the edit button located on the right side of the todo row. This will open up the same form used to add a new todo, but with the fields pre-populated with the current values of the todo. Make any changes you wish to the fields and click on the "Save" button to save the changes.
-
-Removing a Todo
-To remove a todo from the list, click on the delete button located on the right side of the todo row. This will immediately remove the todo from the list.
-
-Sorting the List
-To sort the todo list, click on the column header of the column you wish to sort by. For example, to sort by priority, click on the "Priority" column header. The list will be sorted in ascending order by default, and clicking on the header again will toggle between ascending and descending order.
-
-Filtering the List
-To filter the todo list, type in the search box located at the top of the page. The list will update dynamically as you type, showing only the todos whose title or description contains the search term.
-
-Built With
-React - A JavaScript library for building user interfaces.
-Material-UI - A popular React UI framework based on Google's Material Design guidelines.
-Authors
-Your Name - Initial work - YourUsername
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Todo App</title>
+  </head>
+  <body>
+    <h1>Todo App</h1>
+    <p>This is a simple Todo app built with React and Material-UI.</p>
+    
+    <h2>Features</h2>
+    <ul>
+      <li>View a list of todos</li>
+      <li>Add a new todo</li>
+      <li>Edit an existing todo</li>
+      <li>Remove a todo</li>
+      <li>Sort todos by column name</li>
+      <li>Filter todos by keyword</li>
+      <li>Select a due date for a todo</li>
+    </ul>
+    
+    <h2>Installation</h2>
+    <p>To install and run the app:</p>
+    <ol>
+      <li>Clone the repository</li>
+      <li>Install the dependencies with `npm install`</li>
+      <li>Start the app with `npm start`</li>
+    </ol>
+    
+    <h2>Usage</h2>
+    <p>To use the app:</p>
+    <ol>
+      <li>Add a new todo by clicking the 'Add' button and filling out the form</li>
+      <li>Edit an existing todo by clicking the 'Edit' button and modifying the form</li>
+      <li>Remove a todo by clicking the 'Delete' button</li>
+      <li>Sort the todos by column name by clicking on the column header</li>
+      <li>Filter the todos by keyword by typing in the search bar</li>
+      <li>Select a due date for a todo by clicking on the 'Due Date' field and selecting a date from the calendar</li>
+    </ol>
+    
+    <h2>License</h2>
+    <p>This app is licensed under the MIT License.</p>
+  </body>
+</html>
