@@ -6,16 +6,16 @@ This is a simple web application built with React and Material-UI that allows us
 
 To get started with the app, first clone this repository:
 
--   $ git clone https://github.com/yourusername/todo-app.git
+-   $ git clone git@github.com:bryanpleblanc/Scoot-Todo.git
 
 Next, navigate to the root folder and install the required dependencies:
 
--   $ cd todo-app
--   $ npm install
+-   $ cd Scoot-Todo
+-   $ npm i
 
 Finally, start the development server:
 
--   $ npm start
+-   $ npm run start
 -   The app should now be available at http://localhost:3000/.
 
 ### Usage
