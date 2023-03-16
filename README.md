@@ -5,15 +5,18 @@ This is a simple web application built with React and Material-UI that allows us
 ## Getting Started
 
 To get started with the app, first clone this repository:
-$ git clone https://github.com/yourusername/todo-app.git
+
+-   $ git clone https://github.com/yourusername/todo-app.git
 
 Next, navigate to the root folder and install the required dependencies:
-$ cd todo-app
-$ npm install
+
+-   $ cd todo-app
+-   $ npm install
 
 Finally, start the development server:
--$ npm start
--The app should now be available at http://localhost:3000/.
+
+-   $ npm start
+-   The app should now be available at http://localhost:3000/.
 
 ### Usage
 
@@ -38,8 +41,8 @@ To filter the todo list, type in the search box located at the top of the page. 
 
 ### Built With
 
--React - A JavaScript library for building user interfaces.
--Material-UI - A popular React UI framework based on Google's Material Design guidelines.
+-   React - A JavaScript library for building user interfaces.
+-   Material-UI - A popular React UI framework based on Google's Material Design guidelines.
 
 ### Authors
 
