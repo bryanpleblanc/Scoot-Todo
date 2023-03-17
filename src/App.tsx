@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { TextField, Box, Stack, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import TodosData from './data/todos.json';
-import { v4 as uuidv4 } from 'uuid';
 import TodoForm from './components/TodoForm';
 import axios from 'axios';
 import './App.css';
@@ -12,22 +10,13 @@ type Todo = {
     id: string;
     title: string;
     description: string;
-    priority?: number;
+    priority: string;
     dueDate: string;
 };
 
 const App = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
-
-    const handleDelete = async (params: any) => {
-        await axios.delete(`http://localhost:3000/todos/${params.row.id}`);
-    };
-
-    // Did not have time to complete this
-    const filteredTodos = todos.filter((todo) =>
-        todo.title.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
 
     const columns: GridColDef[] = [
         { field: 'title', headerName: 'Title', width: 150 },
@@ -56,10 +45,23 @@ const App = () => {
         },
     ];
 
-    const fetchTodos = async () => {
+    const handleDelete = async (params: any) => {
+        await axios.delete(`http://localhost:3000/todos/${params.row.id}`);
+        fetchTodos();
+    };
+
+    const fetchTodos = async (query = '') => {
         try {
-            const response = await axios.get('http://localhost:3000/todos');
-            if (response.data.data.todos.length > 0) {
+            let response;
+            if (query.length > 0) {
+                response = await axios.get(
+                    `http://localhost:3000/todos/query/${query}`,
+                );
+            } else {
+                response = await axios.get(`http://localhost:3000/todos/`);
+            }
+
+            if (response && response.data.data.todos.length > 0) {
                 setTodos(response.data.data.todos);
             }
         } catch (error) {
@@ -67,43 +69,31 @@ const App = () => {
         }
     };
 
+    // Debouncer
+    useEffect(() => {
+        const getData = setTimeout(() => {
+            fetchTodos(searchQuery);
+        }, 1000);
+
+        return () => clearTimeout(getData);
+    }, [searchQuery]);
+
     useEffect(() => {
         fetchTodos();
     }, []);
 
-    const handleAddTodo = (
-        title: string,
-        description: string,
-        dueDate: string,
-        priority: number,
-    ) => {
-        const newTodo: Todo = {
-            id: uuidv4(),
-            title,
-            description,
-            dueDate,
-            priority,
-        };
-        setTodos([...todos, newTodo]);
-    };
-
     return (
         <>
-            <Box sx={{ width: '50%' }}>
+            <Box sx={{ width: '60%' }}>
                 <Stack spacing={2}>
-                    <TodoForm addTodo={handleAddTodo} />
+                    <TodoForm fetchTodos={fetchTodos} />
                     <TextField
                         label="Search"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         sx={{ marginBottom: '1rem' }}
                     />
-                    <DataGrid
-                        rows={filteredTodos}
-                        columns={columns}
-                        autoHeight
-                        pageSize={5}
-                    />
+                    <DataGrid rows={todos} columns={columns} autoHeight />
                 </Stack>
             </Box>
         </>

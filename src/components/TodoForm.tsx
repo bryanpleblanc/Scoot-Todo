@@ -15,15 +15,10 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
-    addTodo: (
-        title: string,
-        description: string,
-        dueDate: string | undefined,
-        priority: number | string,
-    ) => void;
+    fetchTodos: () => void;
 }
 
-const TodoForm = ({ addTodo }: Props) => {
+const TodoForm = ({ fetchTodos }: Props) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('');
@@ -42,6 +37,7 @@ const TodoForm = ({ addTodo }: Props) => {
         setDescription('');
         setPriority('');
         setPriority('');
+        fetchTodos();
     };
 
     return (
@@ -83,16 +79,12 @@ const TodoForm = ({ addTodo }: Props) => {
                         labelId="priority-label"
                         value={priority}
                         onChange={(e) => {
-                            if (typeof e.target.value === 'number') {
-                                setPriority(Number(e.target.value));
-                            } else {
-                                setPriority('');
-                            }
+                            setPriority(e.target.value);
                         }}
                     >
-                        <MenuItem value={1}>Low</MenuItem>
-                        <MenuItem value={2}>Medium</MenuItem>
-                        <MenuItem value={3}>High</MenuItem>
+                        <MenuItem value={'1'}>High</MenuItem>
+                        <MenuItem value={'2'}>Medium</MenuItem>
+                        <MenuItem value={'3'}>Low</MenuItem>
                     </Select>
                 </FormControl>
                 <Button type="submit" variant="contained" color="primary">
