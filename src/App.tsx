@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TextField, Box, Stack, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import TodosData from './data/todos.json';
 import { v4 as uuidv4 } from 'uuid';
 import TodoForm from './components/TodoForm';
+import axios from 'axios';
 import './App.css';
 
 type Todo = {
@@ -16,14 +17,14 @@ type Todo = {
 };
 
 const App = () => {
-    const [todos, setTodos] = useState<Todo[]>(TodosData);
+    const [todos, setTodos] = useState<Todo[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
 
-    const handleDelete = (params: any) => {
-        const updatedTodos = todos.filter((todo) => todo.id !== params.row.id);
-        setTodos(updatedTodos);
+    const handleDelete = async (params: any) => {
+        await axios.delete(`http://localhost:3000/todos/${params.row.id}`);
     };
 
+    // Did not have time to complete this
     const filteredTodos = todos.filter((todo) =>
         todo.title.toLowerCase().includes(searchQuery.toLowerCase()),
     );
@@ -54,6 +55,21 @@ const App = () => {
             ),
         },
     ];
+
+    const fetchTodos = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/todos');
+            if (response.data.data.todos.length > 0) {
+                setTodos(response.data.data.todos);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchTodos();
+    }, []);
 
     const handleAddTodo = (
         title: string,

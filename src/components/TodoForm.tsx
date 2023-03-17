@@ -11,6 +11,8 @@ import {
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
     addTodo: (
@@ -32,9 +34,10 @@ const TodoForm = ({ addTodo }: Props) => {
         setDueDate(convertedDate);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        addTodo(title, description, dueDate, priority);
+        const todo = { title, description, dueDate, priority, id: uuidv4() };
+        await axios.post('http://localhost:3000/todos', todo);
         setTitle('');
         setDescription('');
         setPriority('');
